@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.15)
+project(Snake)
+add_compile_options(-Wall -Wextra)
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(Snake main.cpp Snake.cpp Snake.h SnakeView.cpp SnakeView.h SFMLGraphic.cpp SFMLGraphic.h)
+if (UNIX)
+    set ( CMAKE_MODULES_PATH "/usr/share/SFML/cmake/Modules" ${CMAKE_MODULE_PATH})
+endif(UNIX)
+
+if (WIN32)
+    # //   set( SFML_STATIC_LIBRARIES TRUE )
+    set ( SFML_DIR "C:/cpp/SFML-2.5.1/lib/cmake/SFML")
+endif(WIN32)
+find_package(SFML 2 REQUIRED graphics window system)
+target_link_libraries(Snake sfml-graphics sfml-audio)
