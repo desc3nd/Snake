@@ -5,21 +5,25 @@
 #include "SnakeSFMLController.h"
 #include<iostream>
 
-SnakeSFMLController::SnakeSFMLController(Snake &x, SFMLGraphic &y) :snake(x),view(y) {
+SnakeSFMLController::SnakeSFMLController(Snake &x, SFMLGraphic &y) :snake(x),view(y)
+{
     nrOfTurns=0;
     modeChoosen=false;
     enter=false;
     move=3;
 }
-bool SnakeSFMLController::getChoosen() {
+bool SnakeSFMLController::getChoosen()
+{
     return modeChoosen;
 }
 
-bool SnakeSFMLController::getEnterStatus() {
+bool SnakeSFMLController::getEnterStatus()
+{
     return enter;
 }
 
-void SnakeSFMLController::StartGame() {
+void SnakeSFMLController::StartGame()
+{
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
         enter=true;
@@ -69,50 +73,38 @@ void SnakeSFMLController::menuControl( sf::Event &event)
     }
 }
 
-void SnakeSFMLController::play() {
+void SnakeSFMLController::play()
+{
     if (nrOfTurns % 2 == 0) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-//            snake.Movement(2);
-//            snake.Debug_Display();
-//            view.drawBoard();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
             move = 2;
             nrOfTurns++;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-//            snake.Movement(1);
-//            snake.Debug_Display();
-//            view.drawBoard();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
             move = 1;
             nrOfTurns++;
         }
     }
    else
+   {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-//            snake.Movement(3);
-//            snake.Debug_Display();
-//            view.drawBoard();
             move = 3;
             nrOfTurns++;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-//             snake.Movement(4);
-//            snake.Debug_Display();
-//            view.drawBoard();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
             move = 4;
             nrOfTurns++;
         }
     }
 }
 
-void SnakeSFMLController::moving(int x) {
-    if(x==move)
-    {
-        snake.Movement((x));
-    }
-
+void SnakeSFMLController::moving()
+{
+    snake.Movement((move));
 }
-//int SnakeSFMLController::getMove() {
-//    return move;
-//}
+
 

@@ -1,19 +1,18 @@
-//
-// Created by Marcinek on 30.04.2020.
-//
-
 #include "SFMLGraphic.h"
 #include<iostream>
-SFMLGraphic::SFMLGraphic(Snake &x):snake(x) {
+SFMLGraphic::SFMLGraphic(Snake &x):snake(x)
+{
     height = snake.getHeight();
     width = snake.getWidth();
     ScreenX = 1000;
     ScreenY = 1000;
     nrOfButtons=4;
-    shapeSize=20;
-    for (int i = 0; i < shapeSize; i++) {
-        for (int j = 0; j < shapeSize; j++) {
-            shape[i][j].setRadius(30);
+    shapeAmount=20;
+    for (int i = 0; i < shapeAmount; i++)
+    {
+        for (int j = 0; j < shapeAmount; j++)
+        {
+            shape[i][j].setRadius(40);
             shape[i][j].setFillColor(sf::Color::Transparent);
         }
     }
@@ -25,34 +24,38 @@ SFMLGraphic::SFMLGraphic(Snake &x):snake(x) {
     {
         std::cerr<<"blad przy wczytaniu czcionki";
     }
-        drawMenu();
+    drawMenu();
 
 }
-int SFMLGraphic::getScreenX() {
+int SFMLGraphic::getScreenX()
+{
     return ScreenX;
 }
 
-int SFMLGraphic::getScreenY() {
+int SFMLGraphic::getScreenY()
+{
     return ScreenY;
 }
 
-void SFMLGraphic::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-
+void SFMLGraphic::draw(sf::RenderTarget &target, sf::RenderStates states) const
+{
+int pointsAmount=10;
     for(int i=0;i<nrOfButtons;i++)
     {
         target.draw(menuButtons[i],states);
     }
     target.draw(w8,states);
     target.draw(gameBackGround,states);
-    for(int i=0; i<shapeSize; i++) {
-        for (int j = 0; j < shapeSize; j++) {
+    for(int i=0; i<shapeAmount; i++)
+    {
+        for (int j = 0; j < shapeAmount; j++)
+        {
             target.draw(shape[i][j], states);
         }
     }
     target.draw(lostBackGround,states);
     target.draw(text,states);
-    target.draw(points[15],states);
-    for(int i=0; i<10; i++)
+    for(int i=0; i<pointsAmount; i++)
     {
         target.draw(points[i],states);
         target.draw(bestOutcomes[i],states);
@@ -61,24 +64,32 @@ void SFMLGraphic::draw(sf::RenderTarget &target, sf::RenderStates states) const 
     target.draw(bestOutcomes[10],states);
     target.draw(playernr[10],states);
     target.draw(bestOutcomes[0],states);
+    target.draw(points[12],states);
+
     target.draw(yourScore,states);
 }
 
-void SFMLGraphic::drawBoard() {
-    int thickness=60;
-    gameBackGround.setSize(sf::Vector2f(ScreenX-2*thickness,ScreenY-3*thickness));
+void SFMLGraphic::drawBoard()
+{
+    int thickness=180;
+    gameBackGround.setSize(sf::Vector2f(ScreenX-thickness,ScreenY-thickness));
     gameBackGround.setFillColor(sf::Color::Black);
-    gameBackGround.setPosition(sf::Vector2f(thickness,thickness));
+    gameBackGround.setPosition(sf::Vector2f(thickness/2,thickness/2));
     gameBackGround.setOutlineThickness(thickness);
     gameBackGround.setOutlineColor(sf::Color::White);
     for(int row=0; row<height; row++)
-    {  int positionY=row*100-20;
+    {  int positionY=row*100;
         for(int col=0; col<width; col++)
         {
-            int positionX=col*100-20;
+            int positionX=col*100;
             if(snake.getCharInfo(row,col)==' ')
             {
                 shape[row][col].setFillColor(sf::Color::Transparent);
+            }
+            if(snake.getCharInfo(row,col)=='f')
+            {
+                shape[row][col].setPosition(positionX,positionY);
+                shape[row][col].setFillColor(sf::Color::Red);
             }
             if( snake.getCharInfo(row,col)=='O')
             {
@@ -90,24 +101,21 @@ void SFMLGraphic::drawBoard() {
                 shape[row][col].setPosition(positionX,positionY);
                 shape[row][col].setFillColor(sf::Color::Yellow);
             }
-            if(snake.getCharInfo(row,col)=='f')
-            {
-                shape[row][col].setPosition(positionX,positionY);
-                shape[row][col].setFillColor(sf::Color::Red);
-            }
+
             if(snake.getGameStatus()==Lost)
             {
-               drawGameOver();
-               drawPointsText();
-               drawYourScoreText();
-               drawNumbers();
+                drawGameOver();
+                drawPointsText();
+                drawYourScoreText();
+                drawNumbers();
             }
 
         }
     }
 }
 
-void SFMLGraphic::drawMenu() {
+void SFMLGraphic::drawMenu()
+{
     int spaceBetween=125;
     for(int i=0;i<nrOfButtons;i++)
     {
@@ -119,12 +127,14 @@ void SFMLGraphic::drawMenu() {
 
 }
 
-void SFMLGraphic::drawW8menu() {
+void SFMLGraphic::drawW8menu()
+{
     w8.setTexture(&w8Texture);
     w8.setSize(sf::Vector2f(ScreenX,ScreenY));
 }
 
-void SFMLGraphic::drawGameOver() {
+void SFMLGraphic::drawGameOver()
+{
     lostBackGround.setSize(sf::Vector2f(ScreenX,ScreenY));
     lostBackGround.setFillColor(sf::Color::Black);
     text.setFont(font);
@@ -133,8 +143,10 @@ void SFMLGraphic::drawGameOver() {
     text.setString("Game Over");
 }
 
-void SFMLGraphic::drawPointsText() {
-    int current=15;
+void SFMLGraphic::drawPointsText()
+{
+    int current=12;
+    int nbOfPlayers=10;
     int outcome=snake.getPoints(current);
     std::string _str= std::to_string(outcome);
     points[current].setFont(font);
@@ -144,7 +156,7 @@ void SFMLGraphic::drawPointsText() {
     points[current].setString(_str);
     int outcomePosition=300;
     snake.sortPoints();
-    for(int player=0; player<10;player++)
+    for(int player=0; player<nbOfPlayers;player++)
     {
         outcomePosition+=50;
         points[player].setFont(font);
@@ -157,7 +169,8 @@ void SFMLGraphic::drawPointsText() {
 
 }
 
-void SFMLGraphic::drawYourScoreText() {
+void SFMLGraphic::drawYourScoreText()
+{
 
     yourScore.setFont(font);
     yourScore.setPosition(sf::Vector2f(350,150));
@@ -167,8 +180,9 @@ void SFMLGraphic::drawYourScoreText() {
 
 }
 
-void SFMLGraphic::drawNumbers() {
-    int position=300;
+void SFMLGraphic::drawNumbers()
+{
+   float position=300;
     for(int i=1; i<=10; i++)
     {
         position+=50;
@@ -189,6 +203,4 @@ void SFMLGraphic::drawNumbers() {
     bestOutcomes[0].setString("Best scores:");
 
 }
-
-
 

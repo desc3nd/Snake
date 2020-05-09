@@ -8,24 +8,28 @@ enum GameStatus{Running,Lost};
 struct field
 {
     bool hasHead;
-    bool hasTail;
     bool hasBody;
     bool hasFood;
     bool hasTrap;
 };
+struct coord{
+    int col;
+    int row;
+};
 
 class Snake
 {
-    field board[100][100];
-    int Startrow[100];
-    int Startcol[100];
+    field board[100][100]{};
+    coord snakeSegments[100][100]{};
+
     int height;
     int width;
     GameStatus state;
-    int points[15];
-    int snakeLenght=3;
+    int points[13];
+    int snakeLenght;
     int currentPlayer;
     float elapsedTime;
+    bool ate;
     void findFood();
     void eat();
     void CheckIfLose();
@@ -34,11 +38,12 @@ class Snake
     int headRow();
     int loadNrPlayer();
     void loadOutcome();
+  void turn(int turn);
 
 public:
     Snake(int height, int width);
     void Debug_Display();
-    void Movement(int turn);
+    void Movement(int x);
     char getCharInfo(int x, int y);
     int getWidth();
     int getHeight();

@@ -4,13 +4,14 @@
 #include<SFML/Graphics.hpp>
 #include"Snake.h"
 
-class SFMLGraphic: public sf::Drawable {
+class SFMLGraphic: public sf::Drawable
+{
 Snake &snake;
 int height;
 int width;
 int ScreenX;
 int ScreenY;
-int shapeSize;
+int shapeAmount;
     int nrOfButtons;
     sf::CircleShape shape[40][40];
     sf::RectangleShape gameBackGround;
@@ -21,7 +22,7 @@ int shapeSize;
     sf::RectangleShape w8;
     sf::Text text;
     sf::Font font;
-    sf::Text points[16];
+    sf::Text points[13];
     sf::Text yourScore;
     sf::Text playernr[11];
     sf::Text bestOutcomes[11];

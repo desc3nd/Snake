@@ -3,7 +3,8 @@
 #define SNAKE_SNAKEVIEW_H
 
 #include"Snake.h"
-class SnakeView {
+class SnakeView
+{
     Snake &snake;
     int height;
     int width;

@@ -7,7 +7,8 @@
 #include"SFMLGraphic.h"
 #include"Snake.h"
 
-class SnakeSFMLController{
+class SnakeSFMLController
+{
         Snake &snake;
 SFMLGraphic  &view;
 int nrOfTurns;
@@ -21,8 +22,7 @@ public:
     bool getChoosen();
     bool getEnterStatus();
     void StartGame();
-    //int getMove();
-    void moving(int x);
+    void moving();
 
 };
 
