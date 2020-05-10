@@ -2,7 +2,7 @@
 #include<iostream>
 #include "Snake.h"
 #include <bits/stdc++.h>
- Snake::Snake(int height, int width)
+Snake::Snake(int height, int width)
 {
     this->height=height;
     this->width=width;
@@ -42,16 +42,21 @@
         board[row][0].hasTrap = true;
         board[row][width - 1].hasTrap = true;
     }
-     snakeLenght=1;
-     snakeSegments[snakeLenght]->col=width/2;
-     snakeSegments[snakeLenght]->row=height/2;
-     board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasHead=true;
+    snakeLenght=1;
+    snakeSegments[snakeLenght]->col=width/2;
+    snakeSegments[snakeLenght]->row=height/2;
+    board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasHead=true;
 
     findFood();
 }
 
 int  Snake::getPoints(int  x) const
 {
+    if(x>12 || x<0)
+    {
+        std::cerr<<"blad rozmiarow getPoints";
+        return -1;
+    }
     return points[x];
 }
 float Snake::getElapsedTime() const
@@ -118,9 +123,9 @@ char Snake::getCharInfo(int x, int y) const
 {
     if(x>height || x<0 || y>width || y<0)
     {
+        std::cerr<<"blad rozmiarow getchar";
         exit(1);
     }
-
     else if(board[x][y].hasTrap)
     {
         return '*';
@@ -179,23 +184,32 @@ void Snake::Debug_Display() const
         }
         std::cout<<std::endl;
     }
-   debugPoints();
+    debugPoints();
 }
 void Snake::findFood()
 {
+    bool ifGood=false;
     if (state == Lost)
     {
         return;
     }
     int col = rand() % width;
     int row = rand() % height;
-    while (board[row][col].hasFood || board[col][row].hasBody || board[col][row].hasTrap || board[col][row].hasHead)
+    while(!ifGood)
     {
-        col=rand() %width;
-        row=rand() %height;
+        if(board[row][col].hasFood || board[col][row].hasBody || board[col][row].hasTrap || board[col][row].hasHead)
+        {
+            col=rand() %width;
+            row=rand() %height;
         }
-    board[row][col].hasFood=true;
+        else
+        {
+            board[row][col].hasFood=true;
+            ifGood=true;
+        }
+
     }
+}
 void Snake::eat()
 {
     int col=headCol();
@@ -229,35 +243,35 @@ void Snake::Movement(int x)
     eat();
     board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasHead=false;
 
-    if(ate==true)
+    if(ate)
     {
         board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasBody=true;
         turn(x);
         board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasHead=true;
         return;
     }
-  else
-   {
-      for (int i = 1; i < snakeLenght; i++)
-      {
-          board[snakeSegments[i]->row][snakeSegments[i]->col].hasBody=false;
-      }
+    else
+    {
+        for (int i = 1; i < snakeLenght; i++)
+        {
+            board[snakeSegments[i]->row][snakeSegments[i]->col].hasBody=false;
+        }
 
-      for (int i = 1; i < snakeLenght; i++)
-      {
-          snakeSegments[i]->row=snakeSegments[i+1]->row;
-          snakeSegments[i]->col=snakeSegments[i+1]->col;
-          board[snakeSegments[i]->row][snakeSegments[i]->col].hasBody=true;
-      }
-      turn(x);
-      board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasHead=true;
-   }
+        for (int i = 1; i < snakeLenght; i++)
+        {
+            snakeSegments[i]->row=snakeSegments[i+1]->row;
+            snakeSegments[i]->col=snakeSegments[i+1]->col;
+            board[snakeSegments[i]->row][snakeSegments[i]->col].hasBody=true;
+        }
+        turn(x);
+        board[snakeSegments[snakeLenght]->row][snakeSegments[snakeLenght]->col].hasHead=true;
+    }
 }
 void Snake::saveOutcome()
 {
     std::ofstream outcome;
     outcome.open("bazaWynikow.txt");
-   sortPoints();
+    sortPoints();
     if(!outcome)
     {
         std::cerr<<"can't open bazaWynikow.txt";
@@ -326,6 +340,10 @@ void Snake::debugPoints() const
 
 void Snake::turn(int turn)
 {
+    if(turn<0 || turn>4)
+    {
+        return;
+    }
     if(turn==1)//dol
     {
         snakeSegments[snakeLenght]->row++;
@@ -333,7 +351,7 @@ void Snake::turn(int turn)
     if(turn==2)//gora
     {
         snakeSegments[snakeLenght]->row--;
-;
+        ;
     }
     if(turn==3)//prawo
     {
@@ -343,7 +361,6 @@ void Snake::turn(int turn)
     if(turn==4)//lewo
     {
         snakeSegments[snakeLenght]->col--;
-
     }
 
 }
