@@ -6,7 +6,7 @@ SnakeView::SnakeView(Snake &x) :snake(x)
 height=snake.getHeight();
 width=snake.getWidth();
 }
-void SnakeView::display()
+void SnakeView::display() const
 {
     for(int row=0; row<height; row++)
     {

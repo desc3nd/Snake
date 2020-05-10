@@ -33,30 +33,27 @@ class Snake
     void findFood();
     void eat();
     void CheckIfLose();
-    int head();
-    int headCol();
-    int headRow();
-    int loadNrPlayer();
+    int head() const;
+    int headCol() const;
+    int headRow() const;
+    int loadNrPlayer() const;
     void loadOutcome();
   void turn(int turn);
 
 public:
     Snake(int height, int width);
-    void Debug_Display();
+    void Debug_Display() const;
     void Movement(int x);
-    char getCharInfo(int x, int y);
-    int getWidth();
-    int getHeight();
-    GameStatus getGameStatus();
-//    void control(char wasd);
-//    void gameSpeed();
+    char getCharInfo(int x, int y) const;
+    int getWidth() const;
+    int getHeight() const ;
+    GameStatus getGameStatus() const;
     void setGameMode(GameMode mode);
-    void debugPoints();
+    void debugPoints() const;
     void saveOutcome();
-    int getPoints(int x);
-//    int getCurrentPlayer();
+    int getPoints(int x ) const;
     void sortPoints();
-    float getElapsedTime();
+    float getElapsedTime() const;
 };
 
 

@@ -12,12 +12,12 @@ SnakeSFMLController::SnakeSFMLController(Snake &x, SFMLGraphic &y) :snake(x),vie
     enter=false;
     move=3;
 }
-bool SnakeSFMLController::getChoosen()
+bool SnakeSFMLController::getChoosen() const
 {
     return modeChoosen;
 }
 
-bool SnakeSFMLController::getEnterStatus()
+bool SnakeSFMLController::getEnterStatus() const
 {
     return enter;
 }
@@ -102,7 +102,7 @@ void SnakeSFMLController::play()
     }
 }
 
-void SnakeSFMLController::moving()
+void SnakeSFMLController::moving() const
 {
     snake.Movement((move));
 }

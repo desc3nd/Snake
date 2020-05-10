@@ -19,10 +19,10 @@ public:
     SnakeSFMLController(Snake &x, SFMLGraphic &y);
     void play();
     void menuControl(sf::Event &event);
-    bool getChoosen();
-    bool getEnterStatus();
-    void StartGame();
-    void moving();
+    bool getChoosen() const;
+    bool getEnterStatus() const;
+    void StartGame() ;
+    void moving() const;
 
 };
 

@@ -27,12 +27,12 @@ SFMLGraphic::SFMLGraphic(Snake &x):snake(x)
     drawMenu();
 
 }
-int SFMLGraphic::getScreenX()
+int SFMLGraphic::getScreenX() const
 {
     return ScreenX;
 }
 
-int SFMLGraphic::getScreenY()
+int SFMLGraphic::getScreenY() const
 {
     return ScreenY;
 }
@@ -94,7 +94,7 @@ void SFMLGraphic::drawBoard()
             if( snake.getCharInfo(row,col)=='O')
             {
                 shape[row][col].setPosition(positionX,positionY);
-                shape[row][col].setFillColor(sf::Color::White);
+                shape[row][col].setFillColor(sf::Color::Magenta);
             }
             if(snake.getCharInfo(row,col)=='o')
             {

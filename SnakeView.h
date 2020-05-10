@@ -11,7 +11,7 @@ class SnakeView
 public:
     explicit SnakeView(Snake &x);
 
-    void display();
+    void display() const;
 
 };
 

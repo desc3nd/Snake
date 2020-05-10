@@ -32,8 +32,8 @@ int shapeAmount;
     void drawNumbers();
 public:
     explicit SFMLGraphic(Snake &x);
-    int getScreenX();
-    int getScreenY();
+    int getScreenX() const;
+    int getScreenY() const;
     void draw(sf::RenderTarget& target,sf::RenderStates states) const override;
     void drawBoard();
     void drawMenu();

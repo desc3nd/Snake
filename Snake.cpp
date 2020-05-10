@@ -50,36 +50,36 @@
     findFood();
 }
 
-int  Snake::getPoints(int x)
+int  Snake::getPoints(int  x) const
 {
     return points[x];
 }
-float Snake::getElapsedTime()
+float Snake::getElapsedTime() const
 {
     return elapsedTime;
 }
-int Snake::headCol()
+int Snake::headCol() const
 {
     int col=head()%10;
     return col;
 }
 
-int Snake::headRow()
+int Snake::headRow()const
 {
     int row=head()/10;
     return row;
 }
-int Snake::getWidth()
+int Snake::getWidth() const
 {
     return width;
 }
 
-int Snake::getHeight()
+int Snake::getHeight() const
 {
     return height;
 }
 
-GameStatus Snake::getGameStatus()
+GameStatus Snake::getGameStatus() const
 {
     return state;
 }
@@ -100,7 +100,7 @@ void Snake::setGameMode(GameMode mode)
         elapsedTime=0.4;
     }
 }
-int Snake::head()
+int Snake::head () const
 {
     for(int row=0; row < height; row++)
     {
@@ -114,7 +114,7 @@ int Snake::head()
     }
     return 0;
 }
-char Snake::getCharInfo(int x, int y)
+char Snake::getCharInfo(int x, int y) const
 {
     if(x>height || x<0 || y>width || y<0)
     {
@@ -151,7 +151,7 @@ void Snake::CheckIfLose()
         return;
     }
 }
-void Snake::Debug_Display()
+void Snake::Debug_Display() const
 {
     for(int row=0; row<height; row++)
     {
@@ -289,7 +289,7 @@ void Snake::loadOutcome()
     outcome.close();
 
 }
-int Snake::loadNrPlayer()
+int Snake::loadNrPlayer() const
 {
     for(int playerNumber=0; playerNumber<11;playerNumber++)
     {
@@ -315,7 +315,7 @@ void Snake::sortPoints()
     }
 
 }
-void Snake::debugPoints()
+void Snake::debugPoints() const
 {
     for (int playerNumber = 0; playerNumber < 11; playerNumber++)
     {
